@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.stacksimplify.restservices.entities.User;
 import com.stacksimplify.restservices.exceptions.UserExistsException;
 import com.stacksimplify.restservices.exceptions.UserNotFoundException;
+import com.stacksimplify.restservices.exceptions.UsernameNotFoundException;
 import com.stacksimplify.restservices.repositories.UserRepository;
 
 @Service
@@ -69,7 +70,7 @@ public class UserService {
 	}
 	
 	//getUserByUsername pass through method
-	public User getUserByUsername(String username) { 
+	public User getUserByUsername(String username) throws UsernameNotFoundException{ 
 		return userRepository.findByUsername(username);
 	}
 
