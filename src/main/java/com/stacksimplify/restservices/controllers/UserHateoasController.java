@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -65,7 +64,6 @@ public class UserHateoasController {
 		CollectionModel<User> model = CollectionModel.of(users, selfLinkgetAllUsers);
 		
 		return model;
-		//return new ResponseEntity<>(model.getContent(), HttpStatus.OK);
 	}
 	
 	// getUserById method
