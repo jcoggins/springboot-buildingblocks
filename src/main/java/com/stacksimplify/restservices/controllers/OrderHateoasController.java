@@ -44,14 +44,19 @@ public class OrderHateoasController {
 			throw new UserNotFoundException("User Not Found");
 		}
 		User user = optionalUser.get();
-		Collection<Order> orders = orderRepository.findAll();
 		List<Order> response = new ArrayList<>();
 		
-		orders.forEach(order -> {
-			order.add(WebMvcLinkBuilder.linkTo(
-					this.getClass()).slash(user.getId()).slash("orders").slash(order.getOrderId()).withSelfRel());
+		Collection<Order> orders = orderRepository.findAll();
+		
+		for(Order order : orders) {
+			if(order.getUser().getId() == id) {
+				
+				order.add(WebMvcLinkBuilder.linkTo(
+					this.getClass()).slash(user.getId()).slash("orders")
+						.slash(order.getOrderId()).withSelfRel());
 					response.add(order);
-		});
+			}			
+		};
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	// getOrderById method

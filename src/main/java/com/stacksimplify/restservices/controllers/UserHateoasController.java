@@ -73,8 +73,8 @@ public class UserHateoasController {
 		
 		try {
 			Optional<User> userOptional = userService.getUserById(id);
-			User user = null;
-			user = userOptional.get();
+			
+			User user = userOptional.get();
 			user.add(WebMvcLinkBuilder.linkTo(
 					this.getClass()).slash(user.getId())
 					.withSelfRel());
