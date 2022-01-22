@@ -63,8 +63,7 @@ public class UserController {
 					.buildAndExpand(user.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		} catch(UserExistsException uee) {
-			throw new ResponseStatusException(
-					HttpStatus.BAD_REQUEST, uee.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, uee.getMessage());
 		}
 	}
 	
