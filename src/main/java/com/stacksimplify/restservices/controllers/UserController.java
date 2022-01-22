@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,9 +29,14 @@ import com.stacksimplify.restservices.exceptions.UserNotFoundException;
 import com.stacksimplify.restservices.exceptions.UsernameNotFoundException;
 import com.stacksimplify.restservices.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "User Management RESTful Services",  description = "User Controller for User Management Service")
 @RestController
 @Validated
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/users" )
 public class UserController {
 	
 	@Autowired
@@ -38,16 +44,18 @@ public class UserController {
 	
 	
 	// getAllUsers method
-	@GetMapping
+	@Operation(summary = "Retrieve Users", description = "Retrieve list of users")
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAllUsers() {
 		
 		return userService.getAllUsers();
 	}
 	
 	// createUser method
+	@Operation(summary = "Create User", description = "Create a new user")
 	@PostMapping
-	public ResponseEntity<Void> createUser(@Valid
-			@RequestBody User user, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> createUser(@Valid @RequestBody User user, 
+			UriComponentsBuilder builder) {
 		try {
 			userService.createUser(user);
 			HttpHeaders headers = new HttpHeaders();
@@ -63,7 +71,7 @@ public class UserController {
 	// getUserById method
 	// User OptionalUser to avoid null users
 	@GetMapping("/{id}")
-	public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
+	public Optional<User> getUserById(@Parameter(description = "  Id needed") @PathVariable("id") @Min(1) Long id) {
 		
 		try {
 			return userService.getUserById(id);

@@ -13,27 +13,32 @@ import javax.validation.constraints.Size;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 
+//@ApiModel → @Schema
+@Schema(description = "This model is to create a user")  
 @Entity
 @Table(name="user")
 //@JsonIgnoreProperties({"firstname", "lastname"})  // -- Static Filtering JsonIgnore
 //@JsonFilter(value = "userFilter")
 public class User extends RepresentationModel<User> {
 	
+	@Schema(description = "Auto generated unique id", required = true)
 	@Id
 	@GeneratedValue
 	@JsonView(Views.External.class)
 	private Long id;
 	
+	@Schema(description = "username should be flname", example = "jcoggi", required = true)
+	@Size(min=2, max = 50)
 	@NotEmpty(message = "Username is Mandatory field. Please provide username")
-	@Size(min=2, message="FirstName should have at least 2 characters")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	@JsonView(Views.External.class)
 	private String username;
 	
+	@Size(min=2, max = 50, message="FirstName should have at least 2 characters")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	@JsonView(Views.External.class)
 	private String firstname;
