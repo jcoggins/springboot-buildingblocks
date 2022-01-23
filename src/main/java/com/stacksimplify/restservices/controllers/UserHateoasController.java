@@ -23,7 +23,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.stacksimplify.restservices.entities.Order;
 import com.stacksimplify.restservices.entities.User;
 import com.stacksimplify.restservices.exceptions.UserNotFoundException;
-import com.stacksimplify.restservices.repositories.UserRepository;
 import com.stacksimplify.restservices.services.UserService;
 
 @RestController
@@ -33,9 +32,6 @@ public class UserHateoasController {
 	
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private UserRepository userRepository;
 	
 	// getAllUsers method
 	@GetMapping
