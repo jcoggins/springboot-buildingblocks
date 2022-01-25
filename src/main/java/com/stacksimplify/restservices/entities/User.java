@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-//@ApiModel → @Schema
 @Schema(description = "This model is to create a user")  
 @Entity
 @Table(name="user")
